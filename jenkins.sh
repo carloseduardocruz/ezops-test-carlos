@@ -1,8 +1,6 @@
 cd /home/ubuntu/repository
 
-var=`ls | grep 'ezops-test-carlos'`
-
-if [ $var != "" ]
+if [ -d "/home/ubuntu/repository/ezops-test-carlos" ]
 then
 rm -rf ezops-test-carlos
 git clone https://github.com/carloseduardocruz/ezops-test-carlos.git
@@ -12,9 +10,7 @@ fi
 
 cd ezops-test-carlos
 
-
 dockerups=`docker ps -a -q`
-
 
 if [ "$dockerups" != "" ]
 then
@@ -36,4 +32,4 @@ docker ps -a
 git checkout feature/app
 
 docker build -t carlos/app-web:$BUILD_NUMBER .
-docker run -p 80:3000 -d carlos/app-web:$BUILD_NUMBER
+docker run -p 80:80 -d carlos/app-web:$BUILD_NUMBER
